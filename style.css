@@ -642,6 +642,9 @@ a.contact-row:hover { padding-left: 8px; color: var(--accent); }
 }
 .social-arrow { color: var(--text-muted); }
 .social-row:hover .social-arrow { color: var(--accent); }
+.social-label { display: flex; align-items: center; gap: 12px; }
+.social-label svg { flex-shrink: 0; color: var(--text-muted); transition: color 0.25s; }
+.social-row:hover .social-label svg { color: var(--accent); }
 
 /* Footer */
 .footer {
