@@ -87,10 +87,11 @@ const blockObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     entry.target.classList.toggle('in-view', entry.isIntersecting);
   });
-}, { threshold: 0.15 });
+}, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
 revealBlocks.forEach(el => blockObserver.observe(el));
 
-// Section titles "type" themselves out character by character on scroll
+// Section titles "type" themselves out character by character on scroll,
+// and reset every time they leave the viewport so they retype on the way back.
 document.querySelectorAll('.section-title').forEach(title => {
   const text = title.textContent;
   title.textContent = '';
@@ -109,24 +110,24 @@ document.querySelectorAll('.section-title').forEach(title => {
   cursor.setAttribute('aria-hidden', 'true');
   title.appendChild(cursor);
 
-  let cursorTimer;
+  let showTimer, hideTimer;
   const titleObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+      cursor.classList.remove('show');
       if (entry.isIntersecting) {
+        title.classList.remove('in-view');
+        void title.offsetWidth; // force reflow so the animation restarts every time
         title.classList.add('in-view');
-        clearTimeout(cursorTimer);
         const totalDelay = text.length * 14 + 200;
-        cursor.classList.remove('show');
-        void cursor.offsetWidth; // restart animation
-        cursorTimer = setTimeout(() => cursor.classList.add('show'), totalDelay);
-        cursorTimer = setTimeout(() => cursor.classList.remove('show'), totalDelay + 1400);
+        showTimer = setTimeout(() => cursor.classList.add('show'), totalDelay);
+        hideTimer = setTimeout(() => cursor.classList.remove('show'), totalDelay + 1400);
       } else {
         title.classList.remove('in-view');
-        cursor.classList.remove('show');
-        clearTimeout(cursorTimer);
       }
     });
-  }, { threshold: 0.3 });
+  }, { threshold: 0.3, rootMargin: '0px 0px -5% 0px' });
   titleObserver.observe(title);
 });
 
