@@ -506,6 +506,37 @@ main {
   justify-content: center;
   overflow: hidden;
 }
+
+.team-block { margin-top: 22px; }
+.team-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 10px;
+}
+.team-links { display: flex; flex-wrap: wrap; gap: 10px; }
+.team-member {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 8px 16px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition: all 0.2s;
+}
+a.team-member:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+.team-member.placeholder {
+  color: var(--text-muted);
+  border-style: dashed;
+  opacity: 0.6;
+}
 .project-svg { width: 80%; height: 80%; }
 .node-fill { fill: var(--accent); }
 .node-outline { fill: var(--bg); stroke: var(--accent-2); stroke-width: 1.5; }
