@@ -27,6 +27,12 @@ html[data-theme="light"] {
   --panel-wood-dark: #6B421F;
   --shadow: rgba(20, 30, 15, 0.3);
   --sky-cloud: rgba(255,255,255,0.55);
+
+  /* Overworld block textures */
+  --blk-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%238B5A2B'/%3E%3Crect y='0' width='8' height='2' fill='%233FA34D'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%232E9E4F'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%232E9E4F'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%236B421F'/%3E%3Crect x='6' y='5' width='1' height='1' fill='%236B421F'/%3E%3Crect x='5' y='3' width='1' height='1' fill='%236B421F'/%3E%3C/svg%3E");
+  --blk-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%23888888'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%23767676'/%3E%3Crect x='4' y='2' width='2' height='1' fill='%23767676'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%23A0A0A0'/%3E%3Crect x='6' y='5' width='1' height='1' fill='%23767676'/%3E%3Crect x='3' y='6' width='2' height='1' fill='%23A0A0A0'/%3E%3C/svg%3E");
+  --blk-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%23888888'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%23767676'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%2364E8DC'/%3E%3Crect x='5' y='4' width='2' height='2' fill='%2364E8DC'/%3E%3Crect x='1' y='5' width='1' height='1' fill='%23767676'/%3E%3Crect x='6' y='1' width='1' height='1' fill='%23767676'/%3E%3C/svg%3E");
+  --blk-d: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%23B08552'/%3E%3Crect y='0' width='8' height='1' fill='%236B421F'/%3E%3Crect y='7' width='8' height='1' fill='%236B421F'/%3E%3Crect x='0' y='0' width='1' height='8' fill='%236B421F'/%3E%3Crect x='7' y='0' width='1' height='8' fill='%236B421F'/%3E%3Crect x='2' y='2' width='4' height='4' fill='%238B5A2B'/%3E%3C/svg%3E");
 }
 
 /* Nether (night) */
@@ -48,6 +54,12 @@ html[data-theme="dark"] {
   --panel-wood-dark: #2A130B;
   --shadow: rgba(0, 0, 0, 0.65);
   --sky-cloud: rgba(255, 130, 60, 0.07);
+
+  /* Nether block textures */
+  --blk-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%236B1C15'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%23481109'/%3E%3Crect x='4' y='2' width='2' height='1' fill='%23481109'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%238A2C1F'/%3E%3Crect x='6' y='5' width='1' height='1' fill='%23481109'/%3E%3Crect x='3' y='6' width='2' height='1' fill='%238A2C1F'/%3E%3C/svg%3E");
+  --blk-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%23120A1A'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%233C2456'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%233C2456'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%235E3A86'/%3E%3Crect x='6' y='5' width='1' height='1' fill='%233C2456'/%3E%3Crect x='3' y='6' width='1' height='1' fill='%235E3A86'/%3E%3C/svg%3E");
+  --blk-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%236B1C15'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%23481109'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%23EDE6D6'/%3E%3Crect x='5' y='4' width='2' height='2' fill='%23EDE6D6'/%3E%3Crect x='1' y='5' width='1' height='1' fill='%23481109'/%3E%3Crect x='6' y='1' width='1' height='1' fill='%23481109'/%3E%3C/svg%3E");
+  --blk-d: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%23C9A227'/%3E%3Crect x='1' y='1' width='2' height='2' fill='%23FFD23F'/%3E%3Crect x='4' y='4' width='2' height='2' fill='%23FFD23F'/%3E%3Crect x='5' y='1' width='1' height='1' fill='%23FFF3B0'/%3E%3Crect x='1' y='5' width='1' height='1' fill='%23FFF3B0'/%3E%3C/svg%3E");
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -239,13 +251,17 @@ html[data-theme="dark"] .icon-moon { display: block; }
 .hero::before {
   top: 16%;
   left: 3%;
-  background: var(--accent-2);
+  background-image: var(--blk-a);
+  background-size: 100% 100%;
+  image-rendering: pixelated;
   animation-delay: 0s;
 }
 .hero::after {
   top: 68%;
   right: 5%;
-  background: var(--accent);
+  background-image: var(--blk-b);
+  background-size: 100% 100%;
+  image-rendering: pixelated;
   animation-delay: 1.6s;
 }
 @keyframes floatBlock {
@@ -458,11 +474,12 @@ main {
 .section::before {
   content: '';
   position: absolute;
-  left: -7px;
+  left: -8px;
   top: 130px;
-  width: 12px; height: 12px;
-  background: var(--accent);
-  transform: rotate(45deg);
+  width: 14px; height: 14px;
+  background-image: var(--blk-c);
+  background-size: 100% 100%;
+  image-rendering: pixelated;
   box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent-soft), 0 0 0 6px #000;
 }
 
@@ -497,6 +514,17 @@ main {
   background: var(--surface);
   padding: 14px 18px;
   box-shadow: inset 2px 2px 0 var(--bevel-hi), inset -2px -2px 0 var(--bevel-lo), 0 0 0 2px #000;
+  position: relative;
+}
+.stat::after {
+  content: '';
+  position: absolute;
+  top: -6px; right: -6px;
+  width: 12px; height: 12px;
+  background-image: var(--blk-c);
+  background-size: 100% 100%;
+  image-rendering: pixelated;
+  box-shadow: 0 0 0 2px #000;
 }
 .stat-num {
   font-family: var(--font-pixel);
@@ -525,6 +553,18 @@ main {
   color: var(--text-muted);
   margin-bottom: 14px;
   line-height: 1.7;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.skill-group h3::before {
+  content: '';
+  flex-shrink: 0;
+  width: 12px; height: 12px;
+  background-image: var(--blk-b);
+  background-size: 100% 100%;
+  image-rendering: pixelated;
+  box-shadow: 0 0 0 2px #000;
 }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .tags span {
@@ -547,7 +587,9 @@ main {
   left: 0; top: 6px;
   width: 12px; height: 12px;
   border: 3px solid var(--accent);
-  background: var(--bg);
+  background-image: var(--blk-d);
+  background-size: 100% 100%;
+  image-rendering: pixelated;
 }
 .timeline-date {
   font-family: var(--font-pixel);
@@ -586,6 +628,18 @@ main {
   text-transform: uppercase;
   letter-spacing: 0.03em;
   line-height: 1.8;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.project-tag::before {
+  content: '';
+  flex-shrink: 0;
+  width: 10px; height: 10px;
+  background-image: var(--blk-a);
+  background-size: 100% 100%;
+  image-rendering: pixelated;
+  box-shadow: 0 0 0 2px #000;
 }
 .project-info h3 {
   font-family: var(--font-retro);
@@ -685,7 +739,15 @@ a.team-member:hover {
   box-shadow: inset 2px 2px 0 var(--bevel-hi), inset -2px -2px 0 var(--bevel-lo), 0 0 0 2px #000, 0 0 0 5px var(--accent-2-soft);
 }
 .cert-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.cert-icon { color: var(--accent-2); font-size: 1.1rem; }
+.cert-icon {
+  font-size: 0;
+  display: inline-block;
+  width: 18px; height: 18px;
+  background-image: var(--blk-d);
+  background-size: 100% 100%;
+  image-rendering: pixelated;
+  box-shadow: 0 0 0 2px #000;
+}
 .cert-arrow { color: var(--text-muted); transition: transform 0.2s; }
 .cert-card:hover .cert-arrow { transform: translate(2px, -2px); color: var(--accent); }
 .cert-card h4 {
