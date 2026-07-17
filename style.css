@@ -60,13 +60,16 @@ html { scroll-behavior: smooth; }
 }
 
 body {
-  background: var(--bg);
+  background:
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.055) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,0.055) 0 1px, transparent 1px 34px),
+    var(--bg);
   color: var(--text);
   font-family: var(--font-retro);
   font-size: 1.15rem;
   line-height: 1.55;
   overflow-x: hidden;
-  transition: background var(--transition), color var(--transition);
+  transition: background-color var(--transition), color var(--transition);
   image-rendering: -webkit-optimize-contrast;
 }
 
@@ -210,6 +213,7 @@ html[data-theme="dark"] .icon-moon { display: block; }
   padding: 120px 28px 60px;
   max-width: var(--container);
   margin: 0 auto;
+  overflow: hidden;
   background-image:
     radial-gradient(circle at 85% 12%, var(--sky-cloud) 0 3%, transparent 4%),
     radial-gradient(circle at 70% 20%, var(--sky-cloud) 0 2%, transparent 3%),
@@ -217,7 +221,41 @@ html[data-theme="dark"] .icon-moon { display: block; }
   background-repeat: no-repeat;
 }
 
+/* Floating pixel-block ornaments, purely decorative */
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  z-index: 0;
+  pointer-events: none;
+  box-shadow:
+    inset 4px 4px 0 rgba(255,255,255,0.45),
+    inset -4px -4px 0 rgba(0,0,0,0.4),
+    0 0 0 2px #000;
+  animation: floatBlock 4.5s ease-in-out infinite;
+}
+.hero::before {
+  top: 16%;
+  left: 3%;
+  background: var(--accent-2);
+  animation-delay: 0s;
+}
+.hero::after {
+  top: 68%;
+  right: 5%;
+  background: var(--accent);
+  animation-delay: 1.6s;
+}
+@keyframes floatBlock {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(6deg); }
+}
+
 .hero-inner {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
   gap: 60px;
@@ -382,13 +420,24 @@ html[data-theme="dark"] .icon-moon { display: block; }
   100% { transform: translateY(0); opacity: 1; }
 }
 
-/* ===== Signature path line ===== */
+/* ===== Signature path line — grass/dirt block-world divider ===== */
 .path-line {
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 0 28px;
-  height: 0;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  height: 30px;
   position: relative;
+  background:
+    repeating-linear-gradient(90deg,
+      var(--accent) 0 16px,
+      color-mix(in srgb, var(--accent) 78%, #000) 16px 32px);
+  box-shadow: 0 0 0 2px #000;
+  clip-path: polygon(
+    0 0, 100% 0, 100% 55%,
+    93.75% 100%, 87.5% 55%, 81.25% 100%, 75% 55%, 68.75% 100%,
+    62.5% 55%, 56.25% 100%, 50% 55%, 43.75% 100%, 37.5% 55%,
+    31.25% 100%, 25% 55%, 18.75% 100%, 12.5% 55%, 6.25% 100%, 0 55%
+  );
 }
 .path-line svg { display: none; }
 
@@ -704,7 +753,7 @@ a.contact-row:hover { padding-left: 8px; color: var(--accent); }
 .social-label svg { flex-shrink: 0; color: var(--text-muted); transition: color 0.2s; }
 .social-row:hover .social-label svg { color: var(--accent); }
 
-/* Footer */
+/* Footer — bedrock bookend */
 .footer {
   text-align: center;
   padding: 50px 28px 40px;
@@ -712,7 +761,8 @@ a.contact-row:hover { padding-left: 8px; color: var(--accent); }
   font-size: 0.58rem;
   line-height: 2;
   color: var(--text-muted);
-  border-top: 3px solid var(--border);
+  background: var(--surface-2);
+  box-shadow: 0 -3px 0 #000, inset 0 3px 0 var(--bevel-hi);
   margin-top: 60px;
 }
 
