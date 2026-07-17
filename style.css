@@ -277,7 +277,7 @@ img { max-width: 100%; display: block; }
   transform: translateY(2px);
 }
 .theme-toggle svg { width: 34px; height: 34px; display: block; }
-.icon-portal-open { display: none; }
+.theme-toggle .icon-portal-open { display: none; }
 html[data-theme="dark"] .icon-portal-closed { display: none; }
 html[data-theme="dark"] .icon-portal-open {
   display: block;
