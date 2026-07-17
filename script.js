@@ -23,7 +23,18 @@ const OVERWORLD_TIPS = [
   'Tip: Sheep regrow their wool over time.'
 ];
 
+const NETHER_STAGES = ['entering the nether...', 'building terrain...', 'loading terrain...', 'simulating world for a bit...'];
+const OVERWORLD_STAGES = ['returning to the overworld...', 'building terrain...', 'loading terrain...', 'preparing spawn area...'];
+
 let loaderRunning = false;
+
+// Eases fast at first, then stalls near the end before snapping to 100 —
+// mirrors the way Minecraft's own world-load bar hangs just before it's done.
+function terrainEase(t) {
+  if (t < 0.7) return (t / 0.7) * 0.85; // 0 -> 85% over the first 70% of the time
+  const tail = (t - 0.7) / 0.3; // remaining 30% of time crawls the last 15%
+  return 0.85 + Math.pow(tail, 3) * 0.15;
+}
 
 themeToggle.addEventListener('click', () => {
   if (loaderRunning) return;
@@ -38,7 +49,7 @@ themeToggle.addEventListener('click', () => {
     return;
   }
 
-  const DURATION = 3000; // full 3 seconds, like Minecraft's "Building terrain..." screen
+  const DURATION = 5000; // slow, deliberate — like a real Minecraft world load
 
   const loader = document.getElementById('terrainLoader');
   const loaderLabel = document.getElementById('loaderLabel');
@@ -47,7 +58,8 @@ themeToggle.addEventListener('click', () => {
   const loaderTip = document.getElementById('loaderTip');
 
   const tips = next === 'dark' ? NETHER_TIPS : OVERWORLD_TIPS;
-  loaderLabel.textContent = next === 'dark' ? 'entering the nether...' : 'returning to the overworld...';
+  const stages = next === 'dark' ? NETHER_STAGES : OVERWORLD_STAGES;
+  loaderLabel.textContent = stages[0];
   loaderTip.textContent = tips[Math.floor(Math.random() * tips.length)];
 
   loaderRunning = true;
@@ -58,13 +70,20 @@ themeToggle.addEventListener('click', () => {
 
   requestAnimationFrame(() => loaderFill.classList.add('filling'));
 
-  // Drive the percentage readout across the full duration
+  // Cycle through stage labels at uneven intervals, like the real loading screen
+  const stageTimers = [
+    setTimeout(() => { loaderLabel.textContent = stages[1]; }, DURATION * 0.15),
+    setTimeout(() => { loaderLabel.textContent = stages[2]; }, DURATION * 0.5),
+    setTimeout(() => { loaderLabel.textContent = stages[3]; }, DURATION * 0.8)
+  ];
+
+  // Drive the percentage readout with a stall-then-snap curve across the full duration
   const startTime = performance.now();
   function tickPct(now) {
-    const elapsed = now - startTime;
-    const pct = Math.min(100, Math.round((elapsed / DURATION) * 100));
+    const t = Math.min(1, (now - startTime) / DURATION);
+    const pct = Math.round(terrainEase(t) * 100);
     loaderPct.textContent = pct + '%';
-    if (elapsed < DURATION && loaderRunning) {
+    if (t < 1 && loaderRunning) {
       requestAnimationFrame(tickPct);
     }
   }
@@ -76,10 +95,11 @@ themeToggle.addEventListener('click', () => {
     localStorage.setItem('theme', next);
   }, DURATION * 0.5);
 
-  // Hold the loader for the full 3 seconds before revealing the new world
+  // Hold the loader for the full duration before revealing the new world
   setTimeout(() => {
     loader.classList.remove('active');
     loaderRunning = false;
+    stageTimers.forEach(clearTimeout);
   }, DURATION);
 });
 
