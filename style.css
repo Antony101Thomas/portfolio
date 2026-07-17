@@ -28,7 +28,14 @@ html[data-theme="light"] {
   --shadow: rgba(20, 30, 15, 0.3);
   --sky-cloud: rgba(255,255,255,0.55);
   --scene: none;
-  --bg-photo: none;
+  --bg-photo:
+    radial-gradient(ellipse 220px 90px at 15% 15%, rgba(255,255,255,0.85), transparent 70%),
+    radial-gradient(ellipse 260px 100px at 55% 8%, rgba(255,255,255,0.75), transparent 70%),
+    radial-gradient(ellipse 200px 85px at 85% 22%, rgba(255,255,255,0.7), transparent 70%),
+    radial-gradient(ellipse 240px 95px at 30% 45%, rgba(255,255,255,0.6), transparent 70%),
+    radial-gradient(ellipse 210px 90px at 75% 55%, rgba(255,255,255,0.65), transparent 70%),
+    radial-gradient(ellipse 230px 95px at 10% 75%, rgba(255,255,255,0.55), transparent 70%),
+    radial-gradient(ellipse 220px 90px at 65% 85%, rgba(255,255,255,0.6), transparent 70%);
   --toggle-bg: #1B0F24;
 
   /* Overworld block textures */
@@ -122,7 +129,8 @@ img { max-width: 100%; display: block; }
   inset: -20px;
   z-index: -1;
   pointer-events: none;
-  background: var(--bg-photo) bottom center / cover no-repeat fixed;
+  background: var(--bg-photo);
+  background-repeat: no-repeat;
   filter: blur(6px);
   opacity: 0.9;
   transition: opacity var(--transition);
