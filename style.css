@@ -29,25 +29,25 @@ html[data-theme="light"] {
   --sky-cloud: rgba(255,255,255,0.55);
 }
 
-/* Night / Nether */
+/* Nether (night) */
 html[data-theme="dark"] {
-  --bg: #0C0916;
-  --bg-2: #150F22;
-  --surface: #2A2334;
-  --surface-2: #362C42;
-  --text: #ECE4F5;
-  --text-muted: #9E90B8;
-  --accent: #3FE08A;
-  --accent-soft: rgba(63, 224, 138, 0.14);
-  --accent-2: #F2B90C;
-  --accent-2-soft: rgba(242, 185, 12, 0.16);
-  --border: #4C3F60;
-  --bevel-hi: #52425F;
-  --bevel-lo: #08060C;
-  --panel-wood: #4A2E1A;
-  --panel-wood-dark: #2E1B0F;
-  --shadow: rgba(0, 0, 0, 0.6);
-  --sky-cloud: rgba(255,255,255,0.04);
+  --bg: #180A08;
+  --bg-2: #220E0B;
+  --surface: #3C2018;
+  --surface-2: #4B2A1E;
+  --text: #F5E6D6;
+  --text-muted: #C79E86;
+  --accent: #FF7A33;
+  --accent-soft: rgba(255, 122, 51, 0.16);
+  --accent-2: #FFD23F;
+  --accent-2-soft: rgba(255, 210, 63, 0.18);
+  --border: #5E2E20;
+  --bevel-hi: #6E4030;
+  --bevel-lo: #0C0503;
+  --panel-wood: #4A2416;
+  --panel-wood-dark: #2A130B;
+  --shadow: rgba(0, 0, 0, 0.65);
+  --sky-cloud: rgba(255, 130, 60, 0.07);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
