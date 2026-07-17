@@ -28,7 +28,7 @@ html[data-theme="light"] {
   --shadow: rgba(20, 30, 15, 0.3);
   --sky-cloud: rgba(255,255,255,0.55);
   --scene: none;
-  --bg-photo: url("assets/overworld-bg.jpg");
+  --bg-photo: none;
 
   /* Overworld block textures */
   --blk-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%238B5A2B'/%3E%3Crect y='0' width='8' height='2' fill='%233FA34D'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%232E9E4F'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%232E9E4F'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%236B421F'/%3E%3Crect x='6' y='5' width='1' height='1' fill='%236B421F'/%3E%3Crect x='5' y='3' width='1' height='1' fill='%236B421F'/%3E%3C/svg%3E");
