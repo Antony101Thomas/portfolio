@@ -189,9 +189,20 @@ img { max-width: 100%; display: block; }
   transform: translateY(2px);
   box-shadow: inset -2px -2px 0 var(--bevel-hi), inset 2px 2px 0 var(--bevel-lo), 0 0 0 2px #000;
 }
-.icon-moon { display: none; }
-html[data-theme="dark"] .icon-sun { display: none; }
-html[data-theme="dark"] .icon-moon { display: block; }
+.icon-portal-open { display: none; }
+html[data-theme="dark"] .icon-portal-closed { display: none; }
+html[data-theme="dark"] .icon-portal-open {
+  display: block;
+  filter: drop-shadow(0 0 3px rgba(199, 132, 245, 0.8));
+  animation: portalGlow 2.4s ease-in-out infinite;
+}
+@keyframes portalGlow {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(199, 132, 245, 0.6)); }
+  50% { filter: drop-shadow(0 0 5px rgba(199, 132, 245, 1)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="dark"] .icon-portal-open { animation: none; }
+}
 
 .hamburger {
   display: none;
