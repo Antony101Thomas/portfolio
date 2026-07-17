@@ -29,6 +29,7 @@ html[data-theme="light"] {
   --sky-cloud: rgba(255,255,255,0.55);
   --scene: none;
   --bg-photo: none;
+  --toggle-bg: #6FC6E8;
 
   /* Overworld block textures */
   --blk-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%238B5A2B'/%3E%3Crect y='0' width='8' height='2' fill='%233FA34D'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%232E9E4F'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%232E9E4F'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%236B421F'/%3E%3Crect x='6' y='5' width='1' height='1' fill='%236B421F'/%3E%3Crect x='5' y='3' width='1' height='1' fill='%236B421F'/%3E%3C/svg%3E");
@@ -56,6 +57,7 @@ html[data-theme="dark"] {
   --panel-wood-dark: #2A130B;
   --shadow: rgba(0, 0, 0, 0.65);
   --sky-cloud: rgba(255, 130, 60, 0.07);
+  --toggle-bg: #1B0F24;
   --scene: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 500'%3E%3Cdefs%3E%3Cfilter id='b'%3E%3CfeGaussianBlur stdDeviation='10'/%3E%3C/filter%3E%3CradialGradient id='lava1' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' stop-color='%23FFB347'/%3E%3Cstop offset='50%25' stop-color='%23FF6A1A'/%3E%3Cstop offset='100%25' stop-color='%238A1E00' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cg filter='url(%23b)'%3E%3Cellipse cx='200' cy='480' rx='220' ry='60' fill='url(%23lava1)'/%3E%3Cellipse cx='900' cy='490' rx='260' ry='70' fill='url(%23lava1)'/%3E%3Cellipse cx='1400' cy='480' rx='200' ry='55' fill='url(%23lava1)'/%3E%3Cpath d='M0,420 L60,420 L60,340 L100,340 L100,300 L140,300 L140,360 L180,360 L180,260 L230,260 L230,320 L280,320 L280,240 L300,240 L300,200 L330,200 L330,240 L360,240 L360,300 L420,300 L420,250 L460,250 L460,300 L520,300 L520,220 L560,220 L560,180 L600,180 L600,220 L640,220 L640,300 L700,300 L700,340 L760,340 L760,260 L800,260 L800,200 L830,200 L830,150 L860,150 L860,200 L890,200 L890,260 L940,260 L940,320 L1000,320 L1000,260 L1050,260 L1050,300 L1100,300 L1100,240 L1140,240 L1140,180 L1170,180 L1170,240 L1200,240 L1200,300 L1260,300 L1260,340 L1320,340 L1320,280 L1360,280 L1360,220 L1400,220 L1400,280 L1440,280 L1440,340 L1500,340 L1500,400 L1600,400 L1600,500 L0,500 Z' fill='%231B0B08'/%3E%3C/g%3E%3C/svg%3E");
   --bg-photo: none;
 
@@ -263,12 +265,12 @@ img { max-width: 100%; display: block; }
   width: 38px; height: 38px;
   border-radius: 0;
   border: none;
-  background: #1B0F24;
+  background: var(--toggle-bg);
   color: var(--text);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
   box-shadow: 0 0 0 2px #000;
-  transition: transform 0.1s, filter 0.15s;
+  transition: transform 0.1s, filter 0.15s, background 0.15s;
 }
 .theme-toggle:hover { filter: brightness(1.25); }
 .theme-toggle:active {
