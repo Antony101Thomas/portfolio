@@ -29,7 +29,7 @@ html[data-theme="light"] {
   --sky-cloud: rgba(255,255,255,0.55);
   --scene: none;
   --bg-photo: none;
-  --toggle-bg: #6FC6E8;
+  --toggle-bg: #BFE3F2;
 
   /* Overworld block textures */
   --blk-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%238B5A2B'/%3E%3Crect y='0' width='8' height='2' fill='%233FA34D'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%232E9E4F'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%232E9E4F'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%236B421F'/%3E%3Crect x='6' y='5' width='1' height='1' fill='%236B421F'/%3E%3Crect x='5' y='3' width='1' height='1' fill='%236B421F'/%3E%3C/svg%3E");
@@ -269,7 +269,7 @@ img { max-width: 100%; display: block; }
   color: var(--text);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
-  box-shadow: 0 0 0 2px #000;
+  box-shadow: 0 0 0 2px var(--border);
   transition: transform 0.1s, filter 0.15s, background 0.15s;
 }
 .theme-toggle:hover { filter: brightness(1.25); }
