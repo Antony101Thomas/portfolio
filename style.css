@@ -155,7 +155,20 @@ img { max-width: 100%; display: block; }
 }
 .loader-fill.filling {
   width: 100%;
-  transition: width 0.6s steps(20);
+  transition: width 2.7s steps(28);
+}
+.loader-pct {
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  color: #A8A8A8;
+  letter-spacing: 0.04em;
+}
+.loader-tip {
+  font-family: var(--font-retro);
+  font-size: 1rem;
+  color: #7A7A7A;
+  text-align: center;
+  min-height: 1.4em;
 }
 @media (prefers-reduced-motion: reduce) {
   .terrain-loader { display: none; }

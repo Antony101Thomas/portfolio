@@ -10,7 +10,24 @@ if (savedTheme) {
   root.setAttribute('data-theme', 'light');
 }
 
+const NETHER_TIPS = [
+  'Tip: Portals connect two worlds.',
+  'Tip: Obsidian forms where lava meets water.',
+  'Tip: Watch your step near the lava.',
+  'Tip: Ghasts lurk in the haze.'
+];
+const OVERWORLD_TIPS = [
+  'Tip: The sun rises in the east.',
+  'Tip: Grass grows where light reaches.',
+  'Tip: Villagers trade for emeralds.',
+  'Tip: Sheep regrow their wool over time.'
+];
+
+let loaderRunning = false;
+
 themeToggle.addEventListener('click', () => {
+  if (loaderRunning) return;
+
   const current = root.getAttribute('data-theme');
   const next = current === 'dark' ? 'light' : 'dark';
   const reduceMotionNow = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -21,25 +38,49 @@ themeToggle.addEventListener('click', () => {
     return;
   }
 
+  const DURATION = 3000; // full 3 seconds, like Minecraft's "Building terrain..." screen
+
   const loader = document.getElementById('terrainLoader');
   const loaderLabel = document.getElementById('loaderLabel');
   const loaderFill = document.getElementById('loaderFill');
+  const loaderPct = document.getElementById('loaderPct');
+  const loaderTip = document.getElementById('loaderTip');
 
+  const tips = next === 'dark' ? NETHER_TIPS : OVERWORLD_TIPS;
   loaderLabel.textContent = next === 'dark' ? 'entering the nether...' : 'returning to the overworld...';
+  loaderTip.textContent = tips[Math.floor(Math.random() * tips.length)];
+
+  loaderRunning = true;
   loaderFill.classList.remove('filling');
+  loaderPct.textContent = '0%';
   void loaderFill.offsetWidth; // reset the fill before replaying
   loader.classList.add('active');
 
   requestAnimationFrame(() => loaderFill.classList.add('filling'));
 
+  // Drive the percentage readout across the full duration
+  const startTime = performance.now();
+  function tickPct(now) {
+    const elapsed = now - startTime;
+    const pct = Math.min(100, Math.round((elapsed / DURATION) * 100));
+    loaderPct.textContent = pct + '%';
+    if (elapsed < DURATION && loaderRunning) {
+      requestAnimationFrame(tickPct);
+    }
+  }
+  requestAnimationFrame(tickPct);
+
+  // Swap the actual theme underneath partway through, once the screen is fully opaque
   setTimeout(() => {
     root.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
-  }, 500);
+  }, DURATION * 0.5);
 
+  // Hold the loader for the full 3 seconds before revealing the new world
   setTimeout(() => {
     loader.classList.remove('active');
-  }, 750);
+    loaderRunning = false;
+  }, DURATION);
 });
 
 // ===== Nav scroll state =====
