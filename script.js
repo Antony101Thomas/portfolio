@@ -1,14 +1,7 @@
-// ===== Theme toggle =====
+// ===== Theme setup: every fresh visit spawns into the Overworld =====
 const root = document.documentElement;
 const themeToggle = document.getElementById('themeToggle');
-const savedTheme = localStorage.getItem('theme');
-const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-
-if (savedTheme) {
-  root.setAttribute('data-theme', savedTheme);
-} else if (prefersLight) {
-  root.setAttribute('data-theme', 'light');
-}
+root.setAttribute('data-theme', 'light');
 
 const NETHER_TIPS = [
   'Tip: Portals connect two worlds.',
@@ -24,7 +17,8 @@ const OVERWORLD_TIPS = [
 ];
 
 const NETHER_STAGES = ['entering the nether...', 'building terrain...', 'loading terrain...', 'simulating world for a bit...'];
-const OVERWORLD_STAGES = ['returning to the overworld...', 'building terrain...', 'loading terrain...', 'preparing spawn area...'];
+const OVERWORLD_STAGES_SPAWN = ['generating world...', 'building terrain...', 'loading terrain...', 'preparing spawn area...'];
+const OVERWORLD_STAGES_RETURN = ['returning to the overworld...', 'building terrain...', 'loading terrain...', 'preparing spawn area...'];
 
 let loaderRunning = false;
 
@@ -36,6 +30,78 @@ function terrainEase(t) {
   return 0.85 + Math.pow(tail, 3) * 0.15;
 }
 
+const loaderEls = {
+  loader: document.getElementById('terrainLoader'),
+  label: document.getElementById('loaderLabel'),
+  fill: document.getElementById('loaderFill'),
+  pct: document.getElementById('loaderPct'),
+  tip: document.getElementById('loaderTip')
+};
+
+// Shared runner behind both the initial "spawn" intro and the theme-toggle transition
+function runTerrainLoader({ stages, tips, duration, onMidpoint, onComplete }) {
+  const { loader, label, fill, pct, tip } = loaderEls;
+
+  label.textContent = stages[0];
+  tip.textContent = tips[Math.floor(Math.random() * tips.length)];
+
+  loaderRunning = true;
+  fill.classList.remove('filling');
+  fill.style.transitionProperty = 'none';
+  pct.textContent = '0%';
+  void fill.offsetWidth; // reset the fill before replaying
+  loader.classList.add('active');
+
+  // Drive this run's fill speed to match its own duration (not a fixed CSS value)
+  fill.style.transitionProperty = 'width';
+  fill.style.transitionTimingFunction = 'steps(40)';
+  fill.style.transitionDuration = Math.max(duration - 300, 300) + 'ms';
+  requestAnimationFrame(() => fill.classList.add('filling'));
+
+  // Cycle through stage labels at uneven intervals, like the real loading screen
+  const stageTimers = [
+    setTimeout(() => { label.textContent = stages[1]; }, duration * 0.15),
+    setTimeout(() => { label.textContent = stages[2]; }, duration * 0.5),
+    setTimeout(() => { label.textContent = stages[3]; }, duration * 0.8)
+  ];
+
+  // Drive the percentage readout with a stall-then-snap curve across the full duration
+  const startTime = performance.now();
+  function tickPct(now) {
+    const t = Math.min(1, (now - startTime) / duration);
+    const p = Math.round(terrainEase(t) * 100);
+    pct.textContent = p + '%';
+    if (t < 1 && loaderRunning) {
+      requestAnimationFrame(tickPct);
+    }
+  }
+  requestAnimationFrame(tickPct);
+
+  if (onMidpoint) setTimeout(onMidpoint, duration * 0.5);
+
+  setTimeout(() => {
+    loader.classList.remove('active');
+    loaderRunning = false;
+    stageTimers.forEach(clearTimeout);
+    if (onComplete) onComplete();
+  }, duration);
+}
+
+// ===== Initial world-generation intro (plays once, every time the page loads) =====
+const reduceMotionInitial = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reduceMotionInitial) {
+  loaderEls.loader.classList.remove('active');
+} else {
+  const tip = OVERWORLD_TIPS[Math.floor(Math.random() * OVERWORLD_TIPS.length)];
+  loaderEls.tip.textContent = tip;
+  runTerrainLoader({
+    stages: OVERWORLD_STAGES_SPAWN,
+    tips: OVERWORLD_TIPS,
+    duration: 3400
+  });
+}
+
+// ===== Manual theme toggle =====
 themeToggle.addEventListener('click', () => {
   if (loaderRunning) return;
 
@@ -45,62 +111,20 @@ themeToggle.addEventListener('click', () => {
 
   if (reduceMotionNow) {
     root.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
     return;
   }
 
   const DURATION = 5000; // slow, deliberate — like a real Minecraft world load
-
-  const loader = document.getElementById('terrainLoader');
-  const loaderLabel = document.getElementById('loaderLabel');
-  const loaderFill = document.getElementById('loaderFill');
-  const loaderPct = document.getElementById('loaderPct');
-  const loaderTip = document.getElementById('loaderTip');
-
   const tips = next === 'dark' ? NETHER_TIPS : OVERWORLD_TIPS;
-  const stages = next === 'dark' ? NETHER_STAGES : OVERWORLD_STAGES;
-  loaderLabel.textContent = stages[0];
-  loaderTip.textContent = tips[Math.floor(Math.random() * tips.length)];
+  const stages = next === 'dark' ? NETHER_STAGES : OVERWORLD_STAGES_RETURN;
 
-  loaderRunning = true;
-  loaderFill.classList.remove('filling');
-  loaderPct.textContent = '0%';
-  void loaderFill.offsetWidth; // reset the fill before replaying
-  loader.classList.add('active');
-
-  requestAnimationFrame(() => loaderFill.classList.add('filling'));
-
-  // Cycle through stage labels at uneven intervals, like the real loading screen
-  const stageTimers = [
-    setTimeout(() => { loaderLabel.textContent = stages[1]; }, DURATION * 0.15),
-    setTimeout(() => { loaderLabel.textContent = stages[2]; }, DURATION * 0.5),
-    setTimeout(() => { loaderLabel.textContent = stages[3]; }, DURATION * 0.8)
-  ];
-
-  // Drive the percentage readout with a stall-then-snap curve across the full duration
-  const startTime = performance.now();
-  function tickPct(now) {
-    const t = Math.min(1, (now - startTime) / DURATION);
-    const pct = Math.round(terrainEase(t) * 100);
-    loaderPct.textContent = pct + '%';
-    if (t < 1 && loaderRunning) {
-      requestAnimationFrame(tickPct);
-    }
-  }
-  requestAnimationFrame(tickPct);
-
-  // Swap the actual theme underneath partway through, once the screen is fully opaque
-  setTimeout(() => {
-    root.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-  }, DURATION * 0.5);
-
-  // Hold the loader for the full duration before revealing the new world
-  setTimeout(() => {
-    loader.classList.remove('active');
-    loaderRunning = false;
-    stageTimers.forEach(clearTimeout);
-  }, DURATION);
+  runTerrainLoader({
+    stages,
+    tips,
+    duration: DURATION,
+    // Swap the actual theme underneath partway through, once the screen is fully opaque
+    onMidpoint: () => root.setAttribute('data-theme', next)
+  });
 });
 
 // ===== Nav scroll state =====

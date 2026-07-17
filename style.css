@@ -182,7 +182,6 @@ img { max-width: 100%; display: block; }
 }
 .loader-fill.filling {
   width: 100%;
-  transition: width 4.7s steps(40);
 }
 .loader-pct {
   font-family: var(--font-pixel);
