@@ -13,8 +13,33 @@ if (savedTheme) {
 themeToggle.addEventListener('click', () => {
   const current = root.getAttribute('data-theme');
   const next = current === 'dark' ? 'light' : 'dark';
-  root.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
+  const reduceMotionNow = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduceMotionNow) {
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    return;
+  }
+
+  const loader = document.getElementById('terrainLoader');
+  const loaderLabel = document.getElementById('loaderLabel');
+  const loaderFill = document.getElementById('loaderFill');
+
+  loaderLabel.textContent = next === 'dark' ? 'entering the nether...' : 'returning to the overworld...';
+  loaderFill.classList.remove('filling');
+  void loaderFill.offsetWidth; // reset the fill before replaying
+  loader.classList.add('active');
+
+  requestAnimationFrame(() => loaderFill.classList.add('filling'));
+
+  setTimeout(() => {
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }, 500);
+
+  setTimeout(() => {
+    loader.classList.remove('active');
+  }, 750);
 });
 
 // ===== Nav scroll state =====

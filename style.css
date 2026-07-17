@@ -112,6 +112,55 @@ img { max-width: 100%; display: block; }
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* ===== Terrain loading overlay (theme switch transition) ===== */
+.terrain-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0A0A0A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.terrain-loader.active { opacity: 1; pointer-events: all; }
+.loader-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: min(280px, 70%);
+}
+.loader-label {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: #F5F0E8;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  text-align: center;
+}
+.loader-track {
+  width: 100%;
+  height: 14px;
+  background: #2B2B2B;
+  box-shadow: inset 2px 2px 0 #1A1A1A, inset -2px -2px 0 #4A4A4A, 0 0 0 2px #000;
+}
+.loader-fill {
+  height: 100%;
+  width: 0%;
+  background: repeating-linear-gradient(90deg, #6FCF4A 0 6px, #57B23A 6px 12px);
+  transition: none;
+}
+.loader-fill.filling {
+  width: 100%;
+  transition: width 0.6s steps(20);
+}
+@media (prefers-reduced-motion: reduce) {
+  .terrain-loader { display: none; }
+}
+
 /* Reusable pixel bevel — Minecraft GUI panel look */
 .bevel {
   box-shadow:
