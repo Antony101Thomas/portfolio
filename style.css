@@ -723,6 +723,7 @@ main {
   border-bottom: 3px solid var(--border);
 }
 .project-row:last-child { border-bottom: none; }
+.project-row.no-divider { border-bottom: none; padding-bottom: 30px; }
 .project-row.reverse { grid-template-columns: 0.8fr 1.2fr; }
 .project-row.reverse .project-info { order: 2; }
 .project-row.reverse .project-visual { order: 1; }
@@ -803,7 +804,7 @@ main {
   line-height: 1.8;
 }
 
-/* Team leader — highlighted card on top, full width */
+/* Team leader — highlighted card on top, full width, whole card is a link */
 .team-leader {
   display: flex;
   align-items: center;
@@ -813,6 +814,11 @@ main {
   margin-bottom: 16px;
   position: relative;
   box-shadow: inset 2px 2px 0 var(--bevel-hi), inset -2px -2px 0 var(--bevel-lo), 0 0 0 2px #000;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.team-leader:hover {
+  transform: translateY(-3px);
+  box-shadow: inset 2px 2px 0 var(--bevel-hi), inset -2px -2px 0 var(--bevel-lo), 0 0 0 2px #000, 0 0 0 5px var(--accent-2-soft);
 }
 .team-leader::after {
   content: '★ leader';
@@ -854,21 +860,33 @@ main {
   font-weight: 400;
   color: var(--text);
   line-height: 1.2;
+  transition: color 0.15s;
 }
-.team-linkedin {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-family: var(--font-retro);
-  font-size: 1.05rem;
-  color: var(--accent);
-  width: fit-content;
-  transition: color 0.15s, transform 0.1s;
-}
-.team-linkedin:hover { color: var(--accent-2); transform: translateY(-1px); }
-.team-linkedin svg { flex-shrink: 0; }
+.team-leader:hover .team-name,
+.team-card:hover .team-name { color: var(--accent); }
 
-/* Team members — wide row of cards under the leader, full section width */
+/* Small LinkedIn icon badge — sits in the corner, whole card/leader row is the click target */
+.team-li-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  color: var(--accent);
+  background: var(--bg);
+  box-shadow: 0 0 0 2px #000;
+  margin-left: auto;
+  transition: color 0.15s, background 0.15s;
+}
+.team-leader:hover .team-li-badge,
+.team-card:hover .team-li-badge {
+  color: #0A0A0A;
+  background: var(--accent);
+}
+.team-card .team-li-badge { width: 22px; height: 22px; margin-left: 0; }
+
+/* Team members — wide row of cards under the leader, full section width, whole card is a link */
 .team-members-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -888,7 +906,6 @@ main {
 .team-card:hover { transform: translateY(-4px); }
 .team-card .team-photo { width: 68px; height: 68px; }
 .team-card .team-name { font-size: 1.15rem; }
-.team-card .team-linkedin { font-size: 0.95rem; }
 .project-svg { width: 80%; height: 80%; }
 .node-fill { fill: var(--accent); }
 .node-outline { fill: var(--bg); stroke: var(--accent-2); stroke-width: 1.5; }
@@ -1105,5 +1122,4 @@ a.contact-row:hover { padding-left: 8px; color: var(--accent); }
   .team-card { padding: 10px 4px; }
   .team-card .team-photo { width: 40px; height: 40px; }
   .team-card .team-name { font-size: 0.82rem; }
-  .team-card .team-linkedin span { display: none; }
 }
