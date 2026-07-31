@@ -3,6 +3,24 @@ const root = document.documentElement;
 const themeToggle = document.getElementById('themeToggle');
 root.setAttribute('data-theme', 'light');
 
+// ===== Visit logging (fire-and-forget, logs to a private Google Sheet) =====
+(function logVisit() {
+  const LOG_URL = 'https://script.google.com/macros/s/AKfycbwIizfP_zNbc3GrnTNVBkiL9l4_i9qX_uhFmIudouTAc8YJuCDjt9r3rNL5IgZawMXQ/exec';
+  try {
+    const params = new URLSearchParams({
+      ref: document.referrer || 'direct',
+      page: location.pathname + location.hash,
+      ua: navigator.userAgent,
+      screen: `${screen.width}x${screen.height}`
+    });
+    // no-cors: we don't need to read the response, just fire the request.
+    // Wrapped in try/catch so a network hiccup or blocked request never breaks the site.
+    fetch(`${LOG_URL}?${params.toString()}`, { mode: 'no-cors' });
+  } catch (e) {
+    /* logging must never interfere with the site working */
+  }
+})();
+
 const NETHER_TIPS = [
   'Tip: Portals connect two worlds.',
   'Tip: Obsidian forms where lava meets water.',
